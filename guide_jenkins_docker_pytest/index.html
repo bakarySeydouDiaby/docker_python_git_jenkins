@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Exemple_guide_docker_jenkins_pytest - Test Site Bakary</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Exemple_guide_docker_jenkins_pytest";
+    var mkdocs_page_input_path = "guide_jenkins_docker_pytest.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ABC123"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ABC123');
+  </script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Test Site Bakary</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Exemple_guide_docker_jenkins_pytest</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Test Site Bakary</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Exemple_guide_docker_jenkins_pytest</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lien-httpsmediumcomswlhbuild-your-first-automated-test-integration-with-pytest-jenkins-and-docker-ec738ec43955">Lien : https://medium.com/swlh/build-your-first-automated-test-integration-with-pytest-jenkins-and-docker-ec738ec43955</h1>
+<h1 id="sujet-build-your-first-automated-test-integration-with-pytest-jenkins-and-dockern">sujet : Build your first Automated Test Integration with pytest, Jenkins and Docker\n</h1>
+<h1 id="resume">resume :</h1>
+<p>nous allons développer une calculatrice simple en Python, 
+écrire des tests pour celle-ci en utilisant le framework pytest 
+et utiliser un container Jenkins pour récupérer le dépôt depuis GitHub 
+et exécuter les tests à l'intérieur d'un nouveau conteneur Docker lancé par Jenkins. 
+L'ensemble du dépôt est disponible sur : https://github.com/varunkumar032/python-test-calculator</p>
+<p>Initialistaion Git:
+bakary@DESKTOP-337O3J7:/mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git$
+git init</p>
+<h1 id="installation-virtualenv-voir-onenote-xavki-virtualenv-et-pytest">Installation virtualenv : (voir onenote xavki virtualenv) ET pytest</h1>
+<p>bakary@DESKTOP-337O3J7:/mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git$
+virtualenv --python /usr/bin/python3 mydev1
+source mydev1/bin/activate</p>
+<p>pour utiliser l'env virtuel mydev1 editer ~/.bash_aliases ==&gt; alias mydev1='source /mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/mydev1/bin/activate'
+voir doc : https://www.cyberciti.biz/faq/create-permanent-bash-alias-linux-unix/
+pip install pytest
+!!! ctrl+shift+P ::: Python Select interpreter : et mettre le path /mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/mydev1/bin/python3
+!!! sinon on ne pourra pas importer pytest qui est dans ce virtualenv
+!!! pour utiliser les modules et packages, il faut mettre le PYTHONPATH
+!!! import sys
+!!! sys.path.append("/mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/mydev1/lib/python3.8/site-packages")
+!!! import pytest
+pour les 4 tests, on laisse exprès faux la multiplication et la soustraction</p>
+<h1 id="exemple-resultats-pytest">Exemple résultats pytest:</h1>
+<p>(mydev1) bakary@DESKTOP-337O3J7:/mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/src/tests$ pytest test_multiplication.py 
+=================================== test session starts ====================================
+platform linux -- Python 3.8.5, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
+rootdir: /mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/src/tests
+collected 2 items                                                                          </p>
+<p>test_multiplication.py F.                                                            [100%]</p>
+<p>========================================= FAILURES =========================================
+<strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em> test</em>multiply </strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>__</p>
+<pre><code>def test_multiply():
+    result = multiply(3, 4)
+</code></pre>
+<blockquote>
+<pre><code>  assert result == 10
+</code></pre>
+<p>E       assert 12 == 10</p>
+</blockquote>
+<p>test_multiplication.py:15: AssertionError
+================================= short test summary info ==================================
+FAILED test_multiplication.py::test_multiply - assert 12 == 10
+=============================== 1 failed, 1 passed in 1.89s ================================</p>
+<p>(mydev1) bakary@DESKTOP-337O3J7:/mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/src/tests$ pytest test_soustraction.py 
+=================================== test session starts ====================================
+platform linux -- Python 3.8.5, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
+rootdir: /mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/src/tests
+collected 3 items                                                                          </p>
+<p>test_soustraction.py F..                                                             [100%]</p>
+<p>========================================= FAILURES =========================================
+<strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em>_ test_subtract_positive </strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<pre><code>def test_subtract_positive():
+    result = subtract(4, 3)
+</code></pre>
+<blockquote>
+<pre><code>  assert result == 10
+</code></pre>
+<p>E       assert 1 == 10</p>
+</blockquote>
+<p>test_soustraction.py:15: AssertionError
+================================= short test summary info ==================================
+FAILED test_soustraction.py::test_subtract_positive - assert 1 == 10
+=============================== 1 failed, 2 passed in 1.89s ================================</p>
+<p>(mydev1) bakary@DESKTOP-337O3J7:/mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/src/tests$ pytest test_division.py 
+=================================== test session starts ====================================
+platform linux -- Python 3.8.5, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
+rootdir: /mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git/src/tests
+collected 3 items                                                                          </p>
+<p>test_division.py ...                                                                 [100%]</p>
+<p>==================================== 3 passed in 0.09s =====================================</p>
+<p>voir auusi : (mydev1)) bakary@DESKTOP-337O3J7:/mnt/c/Users/Utilisateur/Desktop/bak_projet/3_python/1_pytest$ </p>
+<h1 id="mise-en-place-git-et-github">Mise en place Git et github</h1>
+<p>git config --get remote.origin.url
+cat ~/.ssh/id_rsa.pub ==&gt; se connecter sur github et ajouter cette clé
+git config --list ==&gt; visualise les infos : user, email, url github...</p>
+<p>un push est fait en suivant (Push to remote github) onenote</p>
+<p>on ajoute un ficher requirements.txt qu'on push à nouveau sur github 
+cd src
+pip freeze &gt; requirements.txt</p>
+<p>git status ==&gt; on voit requirements.txt
+git add src/requirements.txt 
+git commit -m " add requirements.txt from pip freeze"
+git push
+git status</p>
+<p>PARTIE Docker
+ ===========
+Rappel : il faut 2 container , 1 pour le test et l'autre pour lancer jenkins</p>
+<h2 id="1_creation-dockerfile-meme-repertoire-que-src-container-qui-execute-le-test-pytest">1_création Dockerfile, même repertoire que src : container qui execute le test pytest</h2>
+<pre><code>FROM python:3.6-slim
+COPY . /python-test-calculator
+WORKDIR /python-test-calculator ==&gt; copie du workspace dans un un nouveau dossier du conteneur qui sera le repertoire de travail
+RUN pip install --no-cache-dir -r requirements.txt ==&gt; commande d'Installation 
+RUN ["pytest", "-v", "--junitxml=reports/result.xml"] ==&gt; commande execution test pytest en mode verbeux
+CMD tail -f /dev/null ==&gt; il maintient le conteneur en fonctionnement même après la fin des tests pour pouvoir copier le fichier result.xml du conteneur vers le worspace Jenkins pour qu'il publie le rapport de test.
+</code></pre>
+<h2 id="2_creation-jenkinsdockerfile-container-qui-fait-tourner-jenkins">2_création JenkinsDockerfile : container qui fait tourner Jenkins</h2>
+<p>ce dockerfile ne fait que créé une image qui fait tourné jenkins et y installe un autre docker, le tout dans un debian
+!!! -qq ou -qqy sont des options de apt-get : -qq veut dire simplement en mode silencieux et y=yess</p>
+<pre><code>FROM jenkins/jenkins:lts
+USER root
+RUN apt-get update -qq \
+    &amp;&amp; apt-get install -qqy apt-transport-https ca-certificates \
+    curl gnupg2 software-properties-common       
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -   
+RUN add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable"   
+RUN apt-get update -qq &amp;&amp; apt-get install docker-ce=17.12.1~ce-0~debian -y
+
+creation de l'image nommée : jenkins_docker_image
+-------------------------------------------------
+    docker build -t jenkins_docker_image -f JenkinsDockerfile .
+lancement du container jenkins nommée jenkins_docker_container sur le port 8080 et avec un bind mounts
+----------------------------------------------------------
+    docker run -d --name jenkins_docker_container -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins_docker_image
+
+verification container:
+-----------------------
+    docker ps
+
+verification du docker installé :
+-------------------------------
+    bakary@DESKTOP-337O3J7:/mnt/c/Users/Utilisateur/Desktop/bak_projet/2_docker_python_jenkins/python_docker_jenkins_git$ docker exec -ti jenkins_docker_container docker --version
+    Docker version 17.12.1-ce, build 7390fc6
+
+verification bind mounts:
+-----------------------
+en local :    
+    (mydev1) bakary@DESKTOP-337O3J7:ls -l /var/run/
+    srw-rw---- 1 root docker   0 Aug  5 18:46 docker-cli.sock
+    srw-rw---- 1 root docker   0 Aug  5 18:46 docker.sock
+
+dans le container:
+    bakary@DESKTOP-337O3J7: docker exec -ti jenkins_docker_container ls -l /var/run/
+    srw-rw---- 1 root 1001    0 Aug  5 16:46 docker.sock
+    drwxrwxrwt 2 root root 4096 Jul 21 00:00 lock
+
+
+lancement sur navigateur :
+--------------------------
+    Open http://localhost:8080/ 
+    copier le pasword obtenu avec : 
+        docker exec -ti jenkins_docker_container cat /var/jenkins_home/secrets/initialAdminPassword
+    Installer les plugins suggérés
+    Configurer utilisateur : login=bakary mdp=bakary1234
+    Sauver et terminer l'installation ==&gt; Jenkins fonctionne correctement
+</code></pre>
+<h1 id="partie-jenkins">PARTIE JENKINS :</h1>
+<p>Click on create new jobs to create a new freestyle project of any name : jenkins pytest </p>
+<pre><code>Under the General tab:
+----------------------
+    mention the project description  
+    and specify the GitHub Project URL.
+
+In Source Code Management tab:
+------------------------------
+click on Git and add the repository URL. 
+Enter the credentials 
+    by selecting Add-&gt;Jenkins 
+    and specifying the username and password of Git account. 
+        This step will copy the repository docker_python_git_jenkins from GitHub URL 
+        into /var/jenkins_home/workspace 
+        thereby creating the workspace inside our python-test-calculator directory 
+        (rappel Dockerfile COPY . /python-test-calculator \ WORKDIR /python-test-calculator)
+
+Under Build tab:
+----------------
+    click on Add build step-&gt;Execute shell and copy the following:
+        IMAGE_NAME="test-image"
+        CONTAINER_NAME="test-container"
+        echo "Check current working directory"
+        pwd
+        echo "Build docker image and run container"
+        docker build -t $IMAGE_NAME .   ===&gt; c'est le Dockerfile copié ici qui est lancé pour creer l'image
+        docker run -d --name $CONTAINER_NAME $IMAGE_NAME ==&gt; lancement container du pytest
+        echo "Copy result.xml into Jenkins container"
+        rm -rf reports; mkdir reports
+        docker cp $CONTAINER_NAME:/python_docker_jenkins_git/reports/result.xml reports/
+        echo "Cleanup"
+        docker stop $CONTAINER_NAME
+        docker rm $CONTAINER_NAME
+        docker rmi $IMAGE_NAME
+</code></pre>
+<p>Etape pas encore decrite</p>
+<h1 id="installation-plugins">Installation plugins</h1>
+<p>Installation du cli
+    Command Line User
+    Command line folks, download the jenkins-cli.jar file from your Jenkins Server.
+    Syntax:
+    wget $JENKINS_URL/jnlpJars/jenkins-cli.jar</p>
+<pre><code>##Example
+    wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+</code></pre>
+<p>Get the plugin manager:</p>
+<p>version=1.0.1
+curl \
+    -L \
+    -X GET "https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/plugin-management-parent-pom-$version/jenkins-plugin-manager-$version.jar" \
+    -o jenkins-plugin-manager-$version.jar</p>
+<p>Download the plugins:</p>
+<p>java -jar jenkins-plugin-manager-$version.jar \
+    --plugin-download-directory pluginsFolder \
+    --plugin-file plugins.yml \
+    --war jenkins.war</p>
+<p>The plugins are in the pluginsFolder.</p>
+<p>commande cli:
+USER="bakary"
+PASSWORD="bakary1234"
+java -jar jenkins-cli.jar -auth ${USER}:${PASSWORD} -s ${JENKINSURL} install-plugin ${PLUGIN_NAME}</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../about/" class="btn btn-neutral" title="About"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../about/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
